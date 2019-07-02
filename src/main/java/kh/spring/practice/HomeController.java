@@ -88,13 +88,29 @@ public class HomeController {
 	
 	@RequestMapping("writeBoard")
 	public String writeBoard(HttpServletRequest request,BoardDTO dto, MultipartFile image, Model m) {
-		String imagePath = session.getServletContext().getRealPath("/resources");
-		System.out.println(dto.getContents());
+		System.out.println(dto.getTitle());
+		String uploadPath = session.getServletContext().getRealPath("/resources");
+		
+		File filePath = new File(uploadPath);
+		if(!filePath.exists()) {
+			filePath.mkdir();
+		}
+		
+		// 클라이언트가 서버에 접속했을 때 폴더, 그 밑에 resources 폴더를 만들겠다
+		System.out.println(uploadPath);
+		try {
+			// 업로드한 임시 이미지 파일을 내가 원하는 새 파일명과 경로에 이동시켜 주는 것
+			
+			image.transferTo(new File(uploadPath + "/" + image.getOriginalFilename()));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		dto.setImagePath("/resources/" + image.getOriginalFilename() );
 		dto.setWriter((String)session.getAttribute("loginId"));
+		
 		int result = bservice.writeBoard(dto);
 		m.addAttribute("result", result);
-		
-		
+	
 //		아래 cos.jar 사용법	
 //		System.out.println(imagePath);
 //		

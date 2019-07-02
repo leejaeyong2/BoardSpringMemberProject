@@ -62,6 +62,7 @@
 			<thead>
 				<tr>
 					<th scope="col"></th>
+					<th scope="col"></th>
 					<th scope="col">제목</th>
 					<th scope="col">내용</th>
 					<th scope="col">작성자</th>
@@ -71,6 +72,7 @@
 				<c:forEach var="dto" items="${list}">
 					<tr>
 						<th scope="row">${ dto.bNo }</th>
+						<td><img src="${dto.imagePath }" style="width:200px"></td>
 						<td><a href="readBoard?bNo=${dto.bNo }">${ dto.title }</a></td>
 						<td>${ dto.contents }</td>
 						<td>${ dto.writer }</td>

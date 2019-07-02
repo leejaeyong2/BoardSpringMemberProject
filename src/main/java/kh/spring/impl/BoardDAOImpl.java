@@ -49,8 +49,8 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 	
 	public int writeBoard(BoardDTO dto) {
-		String sql = "insert into board2 values(b_seq.nextval, ?,?,?)";
-		return template.update(sql,dto.getWriter(), dto.getTitle(), dto.getContents());
+		String sql = "insert into board2 values(b_seq.nextval, ?,?,?,?)";
+		return template.update(sql,dto.getTitle(),dto.getImagePath(), dto.getContents(), dto.getWriter());
 	}
 	
 	static int recordCountPerPage = 5;
@@ -60,7 +60,7 @@ public class BoardDAOImpl implements BoardDAO{
 		int endNum = currentPage*recordCountPerPage;
 		int startNum = endNum - (recordCountPerPage-1);	
 		
-		String sql = "select * from (select row_number() over(order by bNo desc) as rown,bNo,title,contents,writer from board2)"
+		String sql = "select * from (select row_number() over(order by bNo desc) as rown,bNo,title,imagePath,contents,writer from board2)"
 				+ " where rown between ? and ?";
 		return template.query(sql, new Object[] {startNum,endNum}, new RowMapper<BoardDTO>() {
 		@Override
@@ -68,6 +68,7 @@ public class BoardDAOImpl implements BoardDAO{
 			BoardDTO dto = new BoardDTO();
 			dto.setbNo(rs.getInt("bNo"));
 			dto.setTitle(rs.getString("title"));
+			dto.setImagePath(rs.getString("imagePath"));
 			dto.setContents(rs.getString("contents"));
 			dto.setWriter(rs.getString("writer"));
 			return dto;

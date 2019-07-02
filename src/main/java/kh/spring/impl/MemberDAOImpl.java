@@ -52,16 +52,16 @@ public class MemberDAOImpl implements MemberDAO{
 		return template.queryForObject(sql, Integer.class, loginId);
 	}
 	
-//	public int insert(MemberDTO dto) {
-//		String sql = "insert into member values(member_seq.nextval,?,?,?,?,?)";
-//		return template.update(sql,dto.getId(),testSHA256(dto.getPw()),dto.getEmail(),dto.getPhone(),dto.getProfilePath());
-//	}
-	
 	public int insert(MemberDTO dto) {
-		String pw = testSHA256(dto.getPw());
-		dto.setPw(pw);
-		return sst.insert("MemberDAO.insert", dto);
+		String sql = "insert into member values(member_seq.nextval,?,?,?,?,?)";
+		return template.update(sql,dto.getId(),testSHA256(dto.getPw()),dto.getEmail(),dto.getPhone(),dto.getProfilePath());
 	}
+	
+//	public int insert(MemberDTO dto) {
+//		String pw = testSHA256(dto.getPw());
+//		dto.setPw(pw);
+//		return sst.insert("MemberDAO.insert", dto);
+//	}
 	
 //	public int login(LoginDTO dto) {
 //		String sql = "select count(*) from member where id=? and pw=?";

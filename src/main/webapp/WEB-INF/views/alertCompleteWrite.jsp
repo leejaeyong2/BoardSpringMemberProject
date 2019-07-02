@@ -12,7 +12,7 @@
 	<script>
 		if(${result}==1){
 			alert("등록되었습니다.");
-			location.href="toBoard";
+			location.href="toBoard?currentPage=1";
 		}
 		
 	</script>

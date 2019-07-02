@@ -32,7 +32,7 @@
 	<form action="writeBoard" id="form" method="post"
 		enctype="multipart/form-data" accept-charset="UTF-8">
 		<div id="content">
-			<div id="title"><input type=text name="title" placeholder="제목을 입력해 주세요." style="width:300px"></div>
+			<div id="title"><input type="text" name="title" placeholder="제목을 입력해 주세요." style="width:300px"></div>
 			<input type="file" name="image">
 			<div id="summernote" contenteditable="true"></div>
 			<input id="myContent" type="hidden" name="contents">
